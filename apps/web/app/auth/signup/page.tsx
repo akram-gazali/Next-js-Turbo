@@ -1,27 +1,20 @@
-import React from 'react';
-import Link from 'next/link';
-import AuthLayout from '../layout';
-import SignupForm from './signupForm';
-import SubmitButton from '@/components/ui/submitButton';
+import Link from "next/link";
+import React from "react";
+import SignUpForm from "./signupForm";
 
-
-const SignupPage = () => {
-    return(
-        <AuthLayout>
-        <div className="bg-white p-8 rounded-lg w-96 flex flex-col justify-center items-center">
-            <h1 className="text-center text-2xl font-bold mb-4">Sign up Page</h1>
-            <SignupForm />
-            <div className="flex justify-between text-sm">
-                <p>Already an account?</p>
-                <Link className="underLine" href={"auth/signin"}>
-                    Sign in
-                </Link>
-
-            </div>
-            <SubmitButton>Sign Up</SubmitButton>
-
-        </div>
-        </AuthLayout>
-    );
+const SignUpPage = () => {
+  return (
+    <div className="bg-white p-8 rounded-lg shadow-lg w-96 flex flex-col justify-center items-center ">
+      <h1 className="text-center text-2xl font-bold mb-4">Sign Up Page</h1>
+      <SignUpForm />
+      <div className="flex justify-between text-sm">
+        <p>Already have an account?</p>
+        <Link className="underline" href={"/auth/signin"}>
+          Sign In
+        </Link>
+      </div>
+    </div>
+  );
 };
-export default SignupPage;
+
+export default SignUpPage;
