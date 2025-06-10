@@ -1,35 +1,51 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
-
-
+import SubmitButton from "@/components/ui/submitButton";
+import { signUp } from "@/lib/auth";
+import React, { useActionState } from "react";
 
 const SignupForm = () => {
-    return(
-        <form>
-            <div className="flex flex-col gap-2">
-                <div>
-                     <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" placeholder="John" />
-            
-                </div>
+  const [state, action] = useActionState(signUp, undefined);
+  return (
+    <form action={action}>
+      <div className="flex flex-col gap-2">
+        {state?.message && (
+          <p className="text-sm text-red-500">{state.message}</p>
+        )}
 
-                <div>
-                     <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" placeholder="John@example.com" />
-            
-                </div>
+        <div>
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" name="name" placeholder="John" />
+        </div>
+        {state?.error?.name && (
+          <p className="text-sm text-red-500">{state.error.name}</p>
+        )}
 
-                <div>
-                     <Label htmlFor="password">Password</Label>
-                <Input id="password" name="password" type="password" />
-            
-                </div>
-               
-            </div>
+        <div>
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" name="email" placeholder="John@example.com" />
+        </div>
+        {state?.error?.email && (
+          <p className="text-sm text-red-500">{state.error.email}</p>
+        )}
 
-            
-        </form>
-    )
-}
+        <div>
+          <Label htmlFor="password">Password</Label>
+          <Input id="password" name="password" type="password" />
+        </div>
+        {state?.error?.password && (
+          <div>
+            <p>Password must:</p>
+            <ul>
+              {state.error.password.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </form>
+  );
+};
 export default SignupForm;
